@@ -1,0 +1,90 @@
+import React, { useState } from 'react';
+import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaUserPlus, FaComments } from 'react-icons/fa';
+
+const InteractiveUserCard = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const handleFollow = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsFollowing(!isFollowing);
+      setIsLoading(false);
+    }, 1000);
+  };
+
+  const handleMessage = () => {
+    // Implement messaging functionality
+    console.log('Message sent');
+  };
+
+  return (
+    <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl transition-all duration-300 ease-in-out transform hover:scale-105">
+      <div className="md:flex">
+        <div className="md:flex-shrink-0">
+          <img
+            className="h-48 w-full object-cover md:w-48"
+            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+            alt="User profile"
+          />
+        </div>
+        <div className="p-8">
+          <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Jane Doe</div>
+          <p className="mt-2 text-gray-500">UX Designer & Front-end Developer</p>
+          <div className="mt-4">
+            <button
+              onClick={handleExpand}
+              className="text-indigo-500 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+              aria-expanded={isExpanded}
+              aria-controls="user-details"
+            >
+              {isExpanded ? 'Hide Details' : 'View Details'}
+            </button>
+          </div>
+          {isExpanded && (
+            <div id="user-details" className="mt-4 space-y-2">
+              <p className="flex items-center text-gray-600"><FaMapMarkerAlt className="mr-2" /> San Francisco, CA</p>
+              <p className="flex items-center text-gray-600"><FaEnvelope className="mr-2" /> jane.doe@example.com</p>
+              <p className="flex items-center text-gray-600"><FaPhone className="mr-2" /> (123) 456-7890</p>
+            </div>
+          )}
+          <div className="mt-6 flex space-x-4">
+            <button
+              onClick={handleFollow}
+              className={`flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white ${isFollowing ? 'bg-green-600 hover:bg-green-700' : 'bg-indigo-600 hover:bg-indigo-700'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-300 ease-in-out`}
+              disabled={isLoading}
+              aria-label={isFollowing ? 'Unfollow user' : 'Follow user'}
+            >
+              {isLoading ? (
+                <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              ) : (
+                <>
+                  <FaUserPlus className="mr-2" />
+                  {isFollowing ? 'Following' : 'Follow'}
+                </>
+              )}
+            </button>
+            <button
+              onClick={handleMessage}
+              className="flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-300 ease-in-out"
+              aria-label="Message user"
+            >
+              <FaComments className="mr-2" />
+              Message
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default InteractiveUserCard;
