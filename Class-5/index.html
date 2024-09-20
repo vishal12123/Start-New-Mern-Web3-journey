@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Intrest</title>
+</head>
+<body>
+  <input type="number" id="principal" placeholder="Enter Principal">
+   <input type="number" id="rate" placeholder="Enter Rate">
+  <input type="number" id="time" placeholder="Enter Time">
+ 
+  <button onclick="calculate()">Calculate</button>
+  <div id="output"></div>
+  <script>
+    function calculate(){
+    const p = document.getElementById("principal").value;
+    const r = document.getElementById("rate").value;
+    const t = document.getElementById("time").value;
+    
+    const si = (p * r * t) / 100;
+    document.getElementById("output").innerHTML = "Simple Intrest is " + si;
+
+    }
+    
+  </script>
+</body>
+</html>
